@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "659902331111",
+    "project_id": "mias-c635d",
+    "storage_bucket": "mias-c635d.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:659902331111:android:17354ec02729ed051cca42",
+        "android_client_info": {
+          "package_name": "com.example.mias"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyALKuz26gGpxeGKYgc1Fkrm1B9koJpPjNg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
