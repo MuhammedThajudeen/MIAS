@@ -7,7 +7,10 @@ import 'package:mias/utils/constants.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
 class youtubeplayer extends StatefulWidget {
-  const youtubeplayer({super.key});
+  const youtubeplayer(
+      {super.key, required this.videoUrl, required this.videoTitle});
+  final String videoTitle;
+  final String videoUrl;
 
   @override
   State<youtubeplayer> createState() => _youtubeplayerState();
@@ -15,21 +18,36 @@ class youtubeplayer extends StatefulWidget {
 
 class _youtubeplayerState extends State<youtubeplayer> {
   late YoutubePlayerController _controller;
-  
+   bool _isPlayerReady = false;
+
   bool fullScreenOn = false;
   @override
   void initState() {
     super.initState();
     // Replace with your YouTube video ID
-    _controller = YoutubePlayerController(
-      initialVideoId: 'P8P_S1Fjl_Q',
-      flags: const YoutubePlayerFlags(
-        autoPlay: false,
-        mute: false,
-      ),
-    );
-  }
 
+    var videoId = YoutubePlayer.convertUrlToId(widget.videoUrl);
+    print(videoId);
+    _controller = YoutubePlayerController(
+      initialVideoId: videoId as String,
+      flags: const YoutubePlayerFlags(
+        mute: false,
+        autoPlay: true,
+        disableDragSeek: false,
+        loop: false,
+        isLive: false,
+        forceHD: false,
+        enableCaption: false,
+      ),
+    )..addListener(listener);
+  }
+  void listener() {
+    if (_isPlayerReady && mounted && !_controller.value.isFullScreen) {
+      setState(() {
+        // _playerState = _controller.value.playerState;
+      });
+    }
+  }
   @override
   void dispose() {
     _controller.dispose();
@@ -39,7 +57,7 @@ class _youtubeplayerState extends State<youtubeplayer> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: fullScreenOn ?  null:constAppbar(title: 'video') ,
+      appBar: fullScreenOn ? null : constAppbar(title: ''),
       body: Container(
         color: mainColor,
         child: Column(
@@ -47,11 +65,11 @@ class _youtubeplayerState extends State<youtubeplayer> {
           children: [
             Visibility(
               visible: !fullScreenOn,
-              child: const Padding(
-                padding: EdgeInsets.all(8.0),
+              child: Padding(
+                padding: const EdgeInsets.only(top: 50),
                 child: Text(
-                  'Video Title',
-                  style: TextStyle(
+                  widget.videoTitle,
+                  style: const TextStyle(
                     color: Colors.white,
                     fontSize: 18.0,
                     fontWeight: FontWeight.bold,
@@ -59,39 +77,58 @@ class _youtubeplayerState extends State<youtubeplayer> {
                 ),
               ),
             ),
-            Center(
-              child: SizedBox(
-                height:fullScreenOn ? MediaQuery.of(context).size.height : 230 ,
-                child: YoutubePlayerBuilder(
-                  onEnterFullScreen: (){
-                    setState(() {
-                      fullScreenOn = true;
-                    });
-                    SystemChrome.setPreferredOrientations([
-                      DeviceOrientation.landscapeLeft,
-                      DeviceOrientation.landscapeRight,
-                    ]);
-                  },
-                  onExitFullScreen: () {
-                    setState(() {
-                      fullScreenOn = false;
-                    });
-                    SystemChrome.setPreferredOrientations([
-                      DeviceOrientation.landscapeLeft,
-                      DeviceOrientation.landscapeRight,
-                      DeviceOrientation.portraitUp,
-                      DeviceOrientation.portraitDown,
-                    ]);
-                  },
-                  player: YoutubePlayer(
-                    controller: _controller,
-                    showVideoProgressIndicator: true,
-                    progressIndicatorColor: Colors.blueAccent,
-                    progressColors: const ProgressBarColors(
-                      playedColor: Colors.blue,
-                      handleColor: Colors.blueAccent,
+            Expanded(
+              child: Center(
+                child: SizedBox(
+                  height: fullScreenOn ? MediaQuery.of(context).size.height : 230,
+                  child: YoutubePlayerBuilder(
+                    player: YoutubePlayer(
+                      controller: _controller,
+                      showVideoProgressIndicator: true,
+                      progressIndicatorColor: Colors.blueAccent,
+                      progressColors: const ProgressBarColors(
+                        playedColor: Colors.blue,
+                        handleColor: Colors.blueAccent,
+                      ),
+                      topActions: [
+                        const SizedBox(width: 8.0),
+                        Expanded(
+                          child: Text(
+                            _controller.metadata.title,
+                            style: const TextStyle(
+                              color: Colors.white,
+                              fontSize: 18.0,
+                            ),
+                            overflow: TextOverflow.ellipsis,
+                            maxLines: 1,
+                          ),
+                        ),
+                      ],
                     ),
-                  ), builder: (BuildContext , Widget ) => Scaffold(appBar: AppBar(),),
+                    onEnterFullScreen: () {
+                      setState(() {
+                        fullScreenOn = true;
+                      });
+                      SystemChrome.setPreferredOrientations([
+                        DeviceOrientation.landscapeLeft,
+                        DeviceOrientation.landscapeRight,
+                      ]);
+                    },
+                    onExitFullScreen: () {
+                      setState(() {
+                        fullScreenOn = false;
+                      });
+                      SystemChrome.setPreferredOrientations([
+                        DeviceOrientation.landscapeLeft,
+                        DeviceOrientation.landscapeRight,
+                        DeviceOrientation.portraitUp,
+                        DeviceOrientation.portraitDown,
+                      ]);
+                    },
+                    builder: (BuildContext, Widget) => Scaffold(
+                      appBar: AppBar(),
+                    ),
+                  ),
                 ),
               ),
             ),

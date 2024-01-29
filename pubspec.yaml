@@ -33,6 +33,7 @@ dependencies:
   firebase_core: ^2.24.2
   flutter:
     sdk: flutter
+  flutter_windowmanager: ^0.2.0
   google_fonts: ^6.1.0
   youtube_player_flutter: ^8.1.2
 
@@ -45,6 +46,9 @@ dev_dependencies:
 # following page: https://dart.dev/tools/pub/pubspec
 # The following section is specific to Flutter packages.
 flutter:
+
+  assets:
+    - assets/
 
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in
