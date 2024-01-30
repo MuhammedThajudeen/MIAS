@@ -26,7 +26,7 @@ class _TitleScreenState extends State<TitleScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: constAppbar(title: widget.chapter),
+        appBar: constAppbar(title: widget.chapter, elevation: 5),
         body: Container(
             height: MediaQuery.of(context).size.height,
             color: mainColor,
