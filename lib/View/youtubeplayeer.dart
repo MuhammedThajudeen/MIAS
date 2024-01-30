@@ -18,7 +18,6 @@ class youtubeplayer extends StatefulWidget {
 
 class _youtubeplayerState extends State<youtubeplayer> {
   late YoutubePlayerController _controller;
-   bool _isPlayerReady = false;
 
   bool fullScreenOn = false;
   @override
@@ -39,14 +38,7 @@ class _youtubeplayerState extends State<youtubeplayer> {
         forceHD: false,
         enableCaption: false,
       ),
-    )..addListener(listener);
-  }
-  void listener() {
-    if (_isPlayerReady && mounted && !_controller.value.isFullScreen) {
-      setState(() {
-        // _playerState = _controller.value.playerState;
-      });
-    }
+    );
   }
   @override
   void dispose() {
@@ -57,7 +49,7 @@ class _youtubeplayerState extends State<youtubeplayer> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: fullScreenOn ? null : constAppbar(title: ''),
+      appBar: fullScreenOn ? null : constAppbar(title: '', elevation: 5),
       body: Container(
         color: mainColor,
         child: Column(

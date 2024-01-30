@@ -10,7 +10,7 @@ class SubjectlistScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: constAppbar(title: 'MIAS'),
+      appBar: constAppbar(title: 'MIAS', elevation: 5),
       body: Container(
         width: MediaQuery.of(context).size.width,
         color: mainColor,

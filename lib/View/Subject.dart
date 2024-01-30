@@ -14,7 +14,7 @@ class subjectscreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: constAppbar(title: subjectname),
+      appBar: constAppbar(title: subjectname, elevation: 5),
       body: Container(
         // padding: const EdgeInsets.only(bottom: 60),
         height: MediaQuery.of(context).size.height,
