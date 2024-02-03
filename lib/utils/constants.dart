@@ -15,6 +15,8 @@ Color mainColor = const Color(0xff22092C);
 
 TextStyle buttonFontstyle =
     GoogleFonts.nunito(color: Colors.white, fontSize: 20);
+TextStyle noTaskContainerstyle =
+    GoogleFonts.nunito(color: Colors.white, fontSize: 20,fontWeight: FontWeight.bold);  
 TextStyle appbarTitlestyle =
     GoogleFonts.poppins(color: Colors.white, fontSize: 23);
 TextStyle dialogboxTitlestyle(double fontsize){

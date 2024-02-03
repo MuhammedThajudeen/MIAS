@@ -30,7 +30,7 @@ class _TitleScreenState extends State<TitleScreen> {
         body: Container(
             height: MediaQuery.of(context).size.height,
             color: mainColor,
-            child: loading ? Center(child: CircularProgressIndicator()) :
+            child: loading ? const Center(child: CircularProgressIndicator()) : titlesList.isEmpty || titlesList[0].isEmpty ? noTopicContainer():
              ListView.builder(
                 itemBuilder: (context, index) {
                   return InkWell(
@@ -44,7 +44,7 @@ class _TitleScreenState extends State<TitleScreen> {
                                   )));
                     },
                     child: Padding(
-                      padding: const EdgeInsets.only(top: 15, bottom: 20),
+                      padding: const EdgeInsets.only(top: 20, bottom: 15,left: 10,right: 10),
                       child: Text(
                         titlesList[0]["${index + 1}"],
                         style: buttonFontstyle,
@@ -54,6 +54,19 @@ class _TitleScreenState extends State<TitleScreen> {
                   );
                 },
                 itemCount: titlesList.isEmpty? 0 : titlesList[0].length)));
+  }
+
+  noTopicContainer(){
+    return Center(
+      child: Container(
+            height: MediaQuery.of(context).size.height * 0.3,
+            width: MediaQuery.of(context).size.width - 100,
+            decoration: BoxDecoration(
+                color: const Color(0xff872341),
+                borderRadius: BorderRadius.circular(15)),
+            child: Center(child: Text('THERE ARE NO TOPICS ASSIGNED FOR THIS CHAPTER', style: noTaskContainerstyle,textAlign: TextAlign.center,)),
+          ),
+    );
   }
 
   Future<void> getdata() async {

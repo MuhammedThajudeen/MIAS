@@ -20,6 +20,7 @@ class _loginscreenState extends State<loginscreen> {
   TextEditingController usernameController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
   bool showPassword = false;
+  bool loginLoding = false;
 
   @override
   Widget build(BuildContext context) {
@@ -97,7 +98,7 @@ class _loginscreenState extends State<loginscreen> {
                         onPressed: () {
                           loginUser();
                         },
-                        child: const Text(
+                        child: loginLoding ? const CircularProgressIndicator(color: Colors.white,) : const Text(
                           'Login',
                           style: TextStyle(color: Colors.white),
                         )),
@@ -208,7 +209,9 @@ class _loginscreenState extends State<loginscreen> {
         email: usernameController.text,
         password: passwordController.text,
       );
-
+      setState(() {
+        loginLoding = true;
+      });
       // Navigate to the main screen upon successful login
       Navigator.pushReplacement(
           context, MaterialPageRoute(builder: (context) => const HomeScreen()));
@@ -217,7 +220,14 @@ class _loginscreenState extends State<loginscreen> {
       saveLoginStatus(1);
     } catch (e) {
       // Handle login errors
-      dialogBox('Login Failed', 'Invalid email or password');
+      var msg = e.toString();
+      print('eroree $msg');
+      if (msg.contains('network error')) {
+        dialogBox('Login Failed', 'Please check your Internet Connection');
+      }else{
+        dialogBox('Login Failed', 'Invalid email or password');
+      }
+      
       
     }
   }

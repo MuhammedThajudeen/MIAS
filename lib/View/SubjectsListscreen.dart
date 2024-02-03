@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:mias/View/Subject.dart';
 import 'package:mias/utils/appbar.dart';
 import 'package:mias/utils/constants.dart';
@@ -11,63 +12,66 @@ class SubjectlistScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: constAppbar(title: 'MIAS', elevation: 5),
-      body: Container(
-        width: MediaQuery.of(context).size.width,
-        color: mainColor,
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [
-            subjectContainer('Physics', () {
-              Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => const subjectscreen(
-                            subjectname: 'Physics',
-                            chapterCount: 15, 
-                            collectionName: 'chemistry', // collection name is chemistry because data is stored in that
-                          )));
-            }),
-            subjectContainer('Chemistry', () {
-              Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => const subjectscreen(
-                            subjectname: 'Chemistry',
-                            chapterCount: 9, 
-                            collectionName: 'physics', // physics datas are in chemistry collection, in firebase
-                          )));
-            }),
-            subjectContainer('Maths', () {
-              Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => const subjectscreen(
-                            subjectname: 'Maths',
-                            chapterCount: 14, 
-                            collectionName: 'maths',
-                          )));
-            }),
-            subjectContainer('Zoology', () {
-              Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => const subjectscreen(
-                            subjectname: 'Zoology',
-                            chapterCount: 9, 
-                            collectionName: 'zoology',
-                          )));
-            }),
-            subjectContainer('Botony', () {
-              Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => const subjectscreen(
-                            subjectname: 'Botony',
-                            chapterCount: 9, 
-                            collectionName: 'botony',
-                          )));
-            }),
-          ],
+      body: SingleChildScrollView(
+        child: Container(
+          height: MediaQuery.of(context).size.height,
+          width: MediaQuery.of(context).size.width,
+          color: mainColor,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              subjectContainer('Physics', () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const subjectscreen(
+                              subjectname: 'Physics',
+                              chapterCount: 15, 
+                              collectionName: 'physics', // collection name is chemistry because data is stored in that
+                            )));
+              }),
+              subjectContainer('Chemistry', () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const subjectscreen(
+                              subjectname: 'Chemistry',
+                              chapterCount: 9, 
+                              collectionName: 'chemistry', // physics datas are in chemistry collection, in firebase
+                            )));
+              }),
+              subjectContainer('Maths', () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const subjectscreen(
+                              subjectname: 'Maths',
+                              chapterCount: 14, 
+                              collectionName: 'maths',
+                            )));
+              }),
+              subjectContainer('Zoology', () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const subjectscreen(
+                              subjectname: 'Zoology',
+                              chapterCount: 11, 
+                              collectionName: 'zoology',
+                            )));
+              }),
+              subjectContainer('Botony', () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const subjectscreen(
+                              subjectname: 'Botony',
+                              chapterCount: 9, 
+                              collectionName: 'botony',
+                            )));
+              }),
+            ],
+          ),
         ),
       ),
     );
