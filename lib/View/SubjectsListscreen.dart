@@ -56,7 +56,7 @@ class SubjectlistScreen extends StatelessWidget {
                     MaterialPageRoute(
                         builder: (context) => const subjectscreen(
                               subjectname: 'Zoology',
-                              chapterCount: 11, 
+                              chapterCount: 10, 
                               collectionName: 'zoology',
                             )));
               }),
